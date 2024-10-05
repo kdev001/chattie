@@ -1,9 +1,38 @@
+'use client';
+import { useState } from 'react';
 import Image from "next/image";
 
 export default function Home() {
+  const [name, setName] = useState("");
+
+  const handleSubmit = (event: { preventDefault: () => void; }) => {
+    //event.preventDefault();
+    alert(`The name you entered was: ${name}`);
+    onRSVP;
+  }
+
+  const onRSVP = async (eventId: any) => {
+    const response = await fetch("/api/addEvent", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        personid: 1,
+        chatmessage: name
+      })
+    });
+    if (response.status == 200) {
+      alert("RSVP'd!");
+    } else {
+      alert("Error!");
+    }
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <div className="grid grid-rows-[20px_1fr_20px] items-start justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
+      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start ">
         <Image
           className="dark:invert"
           src="https://nextjs.org/icons/next.svg"
@@ -20,10 +49,11 @@ export default function Home() {
             </code>
             .
           </li>
-          <li>Save and see your changes instantly.</li>
+          <li>Save and see your changes instantly!</li>
+          <li>Powered by Kaleb</li>
         </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+        <div className="flex gap-4 items-center flex-col sm:flex-row ">
           <a
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
@@ -47,6 +77,19 @@ export default function Home() {
           >
             Read our docs
           </a>
+        </div>
+
+        <div className="flex gap-4 items-center flex-col sm:flex-row ">
+        <form onSubmit={handleSubmit}>
+      <label>Enter your name:
+        <input 
+          type="text" 
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </label>
+      <input type="submit" />
+    </form>
         </div>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
@@ -99,3 +142,8 @@ export default function Home() {
     </div>
   );
 }
+
+
+
+
+
