@@ -5,13 +5,13 @@ import Image from "next/image";
 export default function Home() {
   const [name, setName] = useState("");
 
-  const handleSubmit = (event: { preventDefault: () => void; }) => {
+  const handleSubmit = (/* event: { preventDefault: () => void; } */) => {
     //event.preventDefault();
     alert(`The name you entered was: ${name}`);
-    onRSVP;
+    onRSVP();
   }
 
-  const onRSVP = async (eventId: any) => {
+  const onRSVP = async (/* eventId: any */) => {
     const response = await fetch("/api/addEvent", {
       method: "POST",
       headers: {
