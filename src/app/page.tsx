@@ -5,14 +5,15 @@ import Image from "next/image";
 export default function Home() {
   const [name, setName] = useState("");
 
-  const handleSubmit = (/* event: { preventDefault: () => void; } */) => {
-    //event.preventDefault();
+  const handleSubmit = (event: { preventDefault: () => void; }) => {
+    event.preventDefault();
     alert(`The name you entered was: ${name}`);
     onRSVP();
   }
 
   const onRSVP = async (/* eventId: any */) => {
-    const response = await fetch("/api/addEvent", {
+    alert(`rsvp entered`);
+    const response = await fetch("api/hello", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -27,6 +28,7 @@ export default function Home() {
       alert("RSVP'd!");
     } else {
       alert("Error!");
+      alert(response.statusText);
     }
   };
 
