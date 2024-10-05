@@ -3,10 +3,15 @@ import { config } from "../../../../config";
 import { NextResponse } from "next/server";
 const pool = new Pool(config);
 
-export async function POST(request/* , response */) {
-    const { personid, chatmessage } = request.body;
+export async function POST(request /* , response */) {
+    const { personid, chatmessage } = await request.json();
     const query = `INSERT INTO messages (personid, chatmessage)
   VALUES ('${personid}', '${chatmessage}');`;
+
+  console.log(`Personid: ${personid}`);
+  console.log(`Chatmessage: ${chatmessage}`);
+  console.log(`Request Body: ${request.personid}`);
+
 
   console.log("visible");
   
