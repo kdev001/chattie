@@ -19,6 +19,6 @@ export async function POST(request/* , response */) {
       /* response.status(500).json({
         message: err.message
       }); */
-      return NextResponse.json({ message: "Error" });
+      return NextResponse.json({ message: `Error: ${err}`});
     }
   }
